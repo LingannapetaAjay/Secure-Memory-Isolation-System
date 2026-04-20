@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Secure Memory Isolation System — A demonstration of how operating systems protect processes by isolating memory spaces, preventing unauthorized access.">
+    <meta name="keywords" content="memory isolation, operating system security, process isolation, computer science project">
+    <meta name="author" content="Mohit Yadav, Zarah Ali Khan, Lingannapeta Ajay">
+    <title>Secure Memory Isolation System | Process Memory Protection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Particle Canvas Background -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo">
+                <i class="fas fa-shield-halved"></i>
+                <span>MemGuard</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#problem">Problem</a></li>
+                <li><a href="#solution">Solution</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#demo">Demo</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#tech-stack">Tech Stack</a></li>
+                <li><a href="#about">Team</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-lock"></i>
+                <span>Operating System Security</span>
+            </div>
+            <h1 class="hero-title">
+                Secure Memory<br>
+                <span class="gradient-text">Isolation System</span>
+            </h1>
+            <p class="hero-tagline">Preventing Unauthorized Memory Access Between Processes</p>
+            <p class="hero-description">
+                A comprehensive demonstration of how modern operating systems protect processes 
+                by isolating memory spaces — ensuring system security, stability, and data protection.
+            </p>
+            <div class="hero-buttons">
+                <a href="#demo" class="btn btn-primary" id="viewDemoBtn">
+                    <i class="fas fa-play"></i>
+                    <span>View Demo</span>
+                </a>
+                <a href="https://github.com/LingannapetaAjay" target="_blank" class="btn btn-secondary" id="viewGithubBtn">
+                    <i class="fab fa-github"></i>
+                    <span>View GitHub</span>
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number" data-count="100">0</span><span class="stat-suffix">%</span>
+                    <span class="stat-label">Isolation</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-count="0">0</span>
+                    <span class="stat-label">Breaches</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-count="99">0</span><span class="stat-suffix">.9%</span>
+                    <span class="stat-label">Uptime</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="memory-visualization">
+                <div class="mem-block mem-block-a">
+                    <div class="mem-header">Process A</div>
+                    <div class="mem-cells">
+                        <div class="mem-cell active"></div>
+                        <div class="mem-cell active"></div>
+                        <div class="mem-cell"></div>
+                        <div class="mem-cell active"></div>
+                        <div class="mem-cell"></div>
+                        <div class="mem-cell active"></div>
+                    </div>
+                </div>
+                <div class="shield-icon">
+                    <i class="fas fa-shield-halved"></i>
+                    <div class="shield-pulse"></div>
+                </div>
+                <div class="mem-block mem-block-b">
+                    <div class="mem-header">Process B</div>
+                    <div class="mem-cells">
+                        <div class="mem-cell"></div>
+                        <div class="mem-cell active"></div>
+                        <div class="mem-cell active"></div>
+                        <div class="mem-cell"></div>
+                        <div class="mem-cell active"></div>
+                        <div class="mem-cell active"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Statement -->
+    <section id="problem" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">The Problem</span>
+                <h2 class="section-title">Why Memory Isolation <span class="gradient-text">Matters</span></h2>
+                <p class="section-subtitle">Without proper memory isolation, your entire system is at risk</p>
+            </div>
+            <div class="problem-grid">
+                <div class="problem-card" data-aos="fade-up">
+                    <div class="problem-icon danger">
+                        <i class="fas fa-skull-crossbones"></i>
+                    </div>
+                    <h3>Data Leaks</h3>
+                    <p>Without isolation, a malicious process can read sensitive data — passwords, encryption keys, personal files — from other running applications.</p>
+                    <div class="threat-level">
+                        <span>Threat Level</span>
+                        <div class="threat-bar"><div class="threat-fill" style="width: 95%"></div></div>
+                        <span class="threat-label critical">Critical</span>
+                    </div>
+                </div>
+                <div class="problem-card" data-aos="fade-up" data-delay="100">
+                    <div class="problem-icon warning">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <h3>Remote Exploitation</h3>
+                    <p>Hackers exploit shared memory to inject malicious code into trusted processes, escalating privileges and taking complete control of the system.</p>
+                    <div class="threat-level">
+                        <span>Threat Level</span>
+                        <div class="threat-bar"><div class="threat-fill" style="width: 90%"></div></div>
+                        <span class="threat-label critical">Critical</span>
+                    </div>
+                </div>
+                <div class="problem-card" data-aos="fade-up" data-delay="200">
+                    <div class="problem-icon error">
+                        <i class="fas fa-bomb"></i>
+                    </div>
+                    <h3>System Crashes</h3>
+                    <p>One buggy program can overwrite memory used by the OS kernel or other applications, causing blue screens, data corruption, or complete system failure.</p>
+                    <div class="threat-level">
+                        <span>Threat Level</span>
+                        <div class="threat-bar"><div class="threat-fill" style="width: 85%"></div></div>
+                        <span class="threat-label high">High</span>
+                    </div>
+                </div>
+                <div class="problem-card" data-aos="fade-up" data-delay="300">
+                    <div class="problem-icon info">
+                        <i class="fas fa-bug"></i>
+                    </div>
+                    <h3>Hard-to-Trace Bugs</h3>
+                    <p>Without isolation, one process can silently corrupt another's memory, creating intermittent bugs that are nearly impossible to reproduce or diagnose.</p>
+                    <div class="threat-level">
+                        <span>Threat Level</span>
+                        <div class="threat-bar"><div class="threat-fill" style="width: 70%"></div></div>
+                        <span class="threat-label medium">Medium</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section id="solution" class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">The Solution</span>
+                <h2 class="section-title">How We <span class="gradient-text">Protect</span> Your System</h2>
+                <p class="section-subtitle">Each process operates in its own isolated memory sandbox</p>
+            </div>
+            <div class="solution-layout">
+                <div class="solution-diagram">
+                    <div class="diagram-container">
+                        <!-- OS Kernel Layer -->
+                        <div class="diagram-kernel">
+                            <div class="kernel-label"><i class="fas fa-microchip"></i> OS Kernel — Memory Manager</div>
+                        </div>
+                        <!-- Process Sandboxes -->
+                        <div class="diagram-processes">
+                            <div class="sandbox sandbox-a">
+                                <div class="sandbox-header">
+                                    <i class="fas fa-cube"></i> Process A
+                                </div>
+                                <div class="sandbox-memory">
+                                    <div class="addr-row"><span class="addr">0x1000</span><span class="val">DATA</span></div>
+                                    <div class="addr-row"><span class="addr">0x1004</span><span class="val">CODE</span></div>
+                                    <div class="addr-row"><span class="addr">0x1008</span><span class="val">HEAP</span></div>
+                                </div>
+                                <div class="sandbox-wall"><i class="fas fa-lock"></i></div>
+                            </div>
+                            <div class="access-arrow blocked">
+                                <i class="fas fa-ban"></i>
+                                <span>Blocked</span>
+                            </div>
+                            <div class="sandbox sandbox-b">
+                                <div class="sandbox-header">
+                                    <i class="fas fa-cube"></i> Process B
+                                </div>
+                                <div class="sandbox-memory">
+                                    <div class="addr-row"><span class="addr">0x2000</span><span class="val">DATA</span></div>
+                                    <div class="addr-row"><span class="addr">0x2004</span><span class="val">CODE</span></div>
+                                    <div class="addr-row"><span class="addr">0x2008</span><span class="val">STACK</span></div>
+                                </div>
+                                <div class="sandbox-wall"><i class="fas fa-lock"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="solution-details">
+                    <div class="solution-point">
+                        <div class="point-icon"><i class="fas fa-shield-halved"></i></div>
+                        <div>
+                            <h3>Virtual Address Spaces</h3>
+                            <p>Each process receives its own virtual address space, making it impossible to directly reference another process's memory.</p>
+                        </div>
+                    </div>
+                    <div class="solution-point">
+                        <div class="point-icon"><i class="fas fa-key"></i></div>
+                        <div>
+                            <h3>Access Control Enforcement</h3>
+                            <p>The MMU (Memory Management Unit) hardware validates every memory access in real-time, blocking unauthorized operations instantly.</p>
+                        </div>
+                    </div>
+                    <div class="solution-point">
+                        <div class="point-icon"><i class="fas fa-bell"></i></div>
+                        <div>
+                            <h3>Violation Detection & Logging</h3>
+                            <p>Any unauthorized access attempt triggers a segmentation fault, terminating the offending process and logging the incident for analysis.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Architecture</span>
+                <h2 class="section-title">How It <span class="gradient-text">Works</span></h2>
+                <p class="section-subtitle">A step-by-step walkthrough of the memory isolation pipeline</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item" data-step="1">
+                    <div class="timeline-marker">
+                        <div class="marker-icon"><i class="fas fa-plus-circle"></i></div>
+                        <span class="marker-number">01</span>
+                    </div>
+                    <div class="timeline-content glass-card">
+                        <h3>Process Creation</h3>
+                        <p>The OS creates a new process and assigns it a unique Process ID (PID). A new page table is initialized for the process.</p>
+                        <div class="code-snippet">
+                            <code><span class="code-keyword">pid</span> = <span class="code-func">fork</span>();  <span class="code-comment">// Create new process</span></code>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item" data-step="2">
+                    <div class="timeline-marker">
+                        <div class="marker-icon"><i class="fas fa-memory"></i></div>
+                        <span class="marker-number">02</span>
+                    </div>
+                    <div class="timeline-content glass-card">
+                        <h3>Memory Allocation</h3>
+                        <p>The kernel allocates isolated virtual memory pages to the process. Physical memory frames are mapped exclusively through the process's page table.</p>
+                        <div class="code-snippet">
+                            <code><span class="code-keyword">void*</span> mem = <span class="code-func">mmap</span>(NULL, size, PROT_READ|PROT_WRITE);</code>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item" data-step="3">
+                    <div class="timeline-marker">
+                        <div class="marker-icon"><i class="fas fa-search-plus"></i></div>
+                        <span class="marker-number">03</span>
+                    </div>
+                    <div class="timeline-content glass-card">
+                        <h3>Access Validation</h3>
+                        <p>On every memory access, the MMU checks the page table to verify the requesting process has legitimate permissions for the target address.</p>
+                        <div class="code-snippet">
+                            <code><span class="code-func">validate_access</span>(pid, virtual_addr, <span class="code-keyword">permissions</span>);</code>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item" data-step="4">
+                    <div class="timeline-marker">
+                        <div class="marker-icon"><i class="fas fa-check-circle"></i></div>
+                        <span class="marker-number">04</span>
+                    </div>
+                    <div class="timeline-content glass-card">
+                        <h3>Access Decision</h3>
+                        <p>If the process owns the memory region, access is granted. Otherwise, the kernel raises a segmentation fault and terminates the violating process.</p>
+                        <div class="decision-badges">
+                            <span class="badge badge-success"><i class="fas fa-check"></i> Access Granted</span>
+                            <span class="badge badge-danger"><i class="fas fa-times"></i> Access Denied</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Demo Section -->
+    <section id="demo" class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Live Simulation</span>
+                <h2 class="section-title">Interactive <span class="gradient-text">Demo</span></h2>
+                <p class="section-subtitle">Experience memory isolation in action — try to breach the security</p>
+            </div>
+            <div class="demo-container">
+                <div class="demo-processes">
+                    <div class="demo-process" id="processA">
+                        <div class="process-header">
+                            <div class="process-indicator running"></div>
+                            <span>Process A <small>(PID: 1024)</small></span>
+                        </div>
+                        <div class="process-memory">
+                            <div class="memory-label">Allocated Memory</div>
+                            <div class="memory-grid" id="memGridA">
+                                <div class="mem-slot" data-addr="0xA000">0xA000</div>
+                                <div class="mem-slot" data-addr="0xA004">0xA004</div>
+                                <div class="mem-slot" data-addr="0xA008">0xA008</div>
+                                <div class="mem-slot" data-addr="0xA00C">0xA00C</div>
+                                <div class="mem-slot" data-addr="0xA010">0xA010</div>
+                                <div class="mem-slot" data-addr="0xA014">0xA014</div>
+                            </div>
+                            <div class="memory-status">
+                                <span class="status-dot safe"></span>
+                                <span>Secure — No violations</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="demo-shield" id="demoShield">
+                        <div class="shield-visual">
+                            <i class="fas fa-shield-halved"></i>
+                            <div class="shield-rings">
+                                <div class="ring ring-1"></div>
+                                <div class="ring ring-2"></div>
+                                <div class="ring ring-3"></div>
+                            </div>
+                        </div>
+                        <span class="shield-label">Memory Protection Layer</span>
+                    </div>
+
+                    <div class="demo-process" id="processB">
+                        <div class="process-header">
+                            <div class="process-indicator running"></div>
+                            <span>Process B <small>(PID: 2048)</small></span>
+                        </div>
+                        <div class="process-memory">
+                            <div class="memory-label">Allocated Memory</div>
+                            <div class="memory-grid" id="memGridB">
+                                <div class="mem-slot" data-addr="0xB000">0xB000</div>
+                                <div class="mem-slot" data-addr="0xB004">0xB004</div>
+                                <div class="mem-slot" data-addr="0xB008">0xB008</div>
+                                <div class="mem-slot" data-addr="0xB00C">0xB00C</div>
+                                <div class="mem-slot" data-addr="0xB010">0xB010</div>
+                                <div class="mem-slot" data-addr="0xB014">0xB014</div>
+                            </div>
+                            <div class="memory-status">
+                                <span class="status-dot safe"></span>
+                                <span>Secure — No violations</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-controls">
+                    <button class="btn btn-attack" id="btnAttackAtoB">
+                        <i class="fas fa-bolt"></i>
+                        <span>Process A → Access B's Memory</span>
+                    </button>
+                    <button class="btn btn-attack" id="btnAttackBtoA">
+                        <i class="fas fa-bolt"></i>
+                        <span>Process B → Access A's Memory</span>
+                    </button>
+                    <button class="btn btn-legit" id="btnLegitAccess">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Legitimate Self-Access</span>
+                    </button>
+                    <button class="btn btn-reset" id="btnReset">
+                        <i class="fas fa-redo"></i>
+                        <span>Reset</span>
+                    </button>
+                </div>
+
+                <div class="demo-result" id="demoResult">
+                    <div class="result-content" id="resultContent">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Click a button above to simulate memory access</span>
+                    </div>
+                </div>
+
+                <div class="demo-log" id="demoLog">
+                    <div class="log-header">
+                        <i class="fas fa-terminal"></i>
+                        <span>Security Audit Log</span>
+                        <button class="log-clear" id="btnClearLog"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                    <div class="log-entries" id="logEntries">
+                        <div class="log-entry info">
+                            <span class="log-time">[SYSTEM]</span>
+                            <span>Memory Protection Module initialized. Ready for simulation.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Capabilities</span>
+                <h2 class="section-title">Key <span class="gradient-text">Features</span></h2>
+                <p class="section-subtitle">Enterprise-grade memory protection capabilities</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card glass-card">
+                    <div class="feature-icon-wrap">
+                        <i class="fas fa-cubes"></i>
+                    </div>
+                    <h3>Process Isolation</h3>
+                    <p>Complete virtual address space separation ensures no process can access another's memory, providing ironclad sandboxing.</p>
+                </div>
+                <div class="feature-card glass-card">
+                    <div class="feature-icon-wrap">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Secure Allocation</h3>
+                    <p>Memory pages are allocated with strict permission flags (read, write, execute), preventing unauthorized operations at the hardware level.</p>
+                </div>
+                <div class="feature-card glass-card">
+                    <div class="feature-icon-wrap">
+                        <i class="fas fa-hand-paper"></i>
+                    </div>
+                    <h3>Access Prevention</h3>
+                    <p>Real-time validation of every memory access through the MMU ensures unauthorized reads and writes are blocked before execution.</p>
+                </div>
+                <div class="feature-card glass-card">
+                    <div class="feature-icon-wrap">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3>System Stability</h3>
+                    <p>Even if one process crashes, it cannot bring down the system. Fault containment ensures uninterrupted operation of all other processes.</p>
+                </div>
+                <div class="feature-card glass-card">
+                    <div class="feature-icon-wrap">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>Audit Logging</h3>
+                    <p>Every access violation is logged with full context — process ID, target address, timestamp — enabling forensic analysis and compliance.</p>
+                </div>
+                <div class="feature-card glass-card">
+                    <div class="feature-icon-wrap">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h3>Zero-Overhead</h3>
+                    <p>Hardware-accelerated MMU enforcement means memory protection operates at native speed with no measurable performance penalty.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section id="tech-stack" class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Technology</span>
+                <h2 class="section-title">Tech <span class="gradient-text">Stack</span></h2>
+                <p class="section-subtitle">Built with modern web technologies and OS-level concepts</p>
+            </div>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <div class="tech-icon">
+                        <i class="fab fa-html5"></i>
+                    </div>
+                    <span class="tech-name">HTML5</span>
+                    <span class="tech-role">Structure</span>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon">
+                        <i class="fab fa-css3-alt"></i>
+                    </div>
+                    <span class="tech-name">CSS3</span>
+                    <span class="tech-role">Styling</span>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon">
+                        <i class="fab fa-js-square"></i>
+                    </div>
+                    <span class="tech-name">JavaScript</span>
+                    <span class="tech-role">Logic & Simulation</span>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <span class="tech-name">OS Concepts</span>
+                    <span class="tech-role">Core Theory</span>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <span class="tech-name">Python</span>
+                    <span class="tech-role">Backend (Optional)</span>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon">
+                        <i class="fab fa-node-js"></i>
+                    </div>
+                    <span class="tech-name">Node.js</span>
+                    <span class="tech-role">Runtime (Optional)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Future Enhancements -->
+    <section id="future" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Roadmap</span>
+                <h2 class="section-title">Future <span class="gradient-text">Enhancements</span></h2>
+                <p class="section-subtitle">What's next for MemGuard</p>
+            </div>
+            <div class="roadmap">
+                <div class="roadmap-item glass-card">
+                    <div class="roadmap-phase">Phase 1</div>
+                    <div class="roadmap-icon"><i class="fab fa-linux"></i></div>
+                    <h3>Linux Kernel Integration</h3>
+                    <p>Implement as a loadable kernel module (LKM) for real-world Linux systems, hooking into the kernel's memory management subsystem.</p>
+                    <div class="roadmap-status">
+                        <span class="status-planned">Planned</span>
+                    </div>
+                </div>
+                <div class="roadmap-item glass-card">
+                    <div class="roadmap-phase">Phase 2</div>
+                    <div class="roadmap-icon"><i class="fas fa-brain"></i></div>
+                    <h3>AI-Based Threat Detection</h3>
+                    <p>Machine learning models trained on memory access patterns to detect anomalies and zero-day exploits before they cause damage.</p>
+                    <div class="roadmap-status">
+                        <span class="status-research">Research</span>
+                    </div>
+                </div>
+                <div class="roadmap-item glass-card">
+                    <div class="roadmap-phase">Phase 3</div>
+                    <div class="roadmap-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Advanced Monitoring Dashboard</h3>
+                    <p>Real-time visualization of memory usage, access patterns, and threat landscapes with automated alerting and reporting.</p>
+                    <div class="roadmap-status">
+                        <span class="status-concept">Concept</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About the Team -->
+    <section id="about" class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Our Team</span>
+                <h2 class="section-title">Meet the <span class="gradient-text">Team</span></h2>
+                <p class="section-subtitle">The minds behind the Secure Memory Isolation System</p>
+            </div>
+            <div class="team-grid">
+                <!-- Member 1: Mohit -->
+                <div class="team-card glass-card">
+                    <div class="team-avatar">
+                        <div class="avatar-ring">
+                            <div class="avatar-placeholder">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="team-name">Mohit Yadav</h3>
+                    <p class="team-role"><i class="fas fa-laptop-code"></i> Student | Developer</p>
+                    <div class="team-details">
+                        <div class="team-detail-row">
+                            <i class="fas fa-id-badge"></i>
+                            <span><strong>Reg No:</strong> 12418960</span>
+                        </div>
+                        <div class="team-detail-row">
+                            <i class="fas fa-users-rectangle"></i>
+                            <span><strong>Section:</strong> R424GBA16</span>
+                        </div>
+                    </div>
+                    <div class="about-links">
+                        <a href="#" class="social-link github" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link linkedin" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <!-- Member 2: Zarah -->
+                <div class="team-card glass-card">
+                    <div class="team-avatar">
+                        <div class="avatar-ring">
+                            <div class="avatar-placeholder">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="team-name">Zarah Ali Khan</h3>
+                    <p class="team-role"><i class="fas fa-laptop-code"></i> Student | Developer</p>
+                    <div class="team-details">
+                        <div class="team-detail-row">
+                            <i class="fas fa-id-badge"></i>
+                            <span><strong>Reg No:</strong> 12416213</span>
+                        </div>
+                        <div class="team-detail-row">
+                            <i class="fas fa-users-rectangle"></i>
+                            <span><strong>Section:</strong> R424GBA17</span>
+                        </div>
+                    </div>
+                    <div class="about-links">
+                        <a href="#" class="social-link github" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link linkedin" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <!-- Member 3: Ajay -->
+                <div class="team-card glass-card">
+                    <div class="team-avatar">
+                        <div class="avatar-ring">
+                            <div class="avatar-placeholder">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="team-name">Lingannapeta Ajay</h3>
+                    <p class="team-role"><i class="fas fa-brain"></i> Aspiring Data Scientist & AI Enthusiast</p>
+                    <div class="team-details">
+                        <div class="team-detail-row">
+                            <i class="fas fa-id-badge"></i>
+                            <span><strong>Reg No:</strong> 12416013</span>
+                        </div>
+                        <div class="team-detail-row">
+                            <i class="fas fa-users-rectangle"></i>
+                            <span><strong>Section:</strong> R424GBA18</span>
+                        </div>
+                    </div>
+                    <div class="about-links">
+                        <a href="https://github.com/LingannapetaAjay" target="_blank" class="social-link github" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://linkedin.com/in/ajay" target="_blank" class="social-link linkedin" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="mailto:ajay@example.com" class="social-link email" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Academic Project Tagline -->
+            <div class="academic-tagline">
+                <i class="fas fa-graduation-cap"></i>
+                <p>Developed as part of an academic project focusing on Operating System security concepts.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <i class="fas fa-shield-halved"></i>
+                        <span>MemGuard</span>
+                    </div>
+                    <p>Secure Memory Isolation System</p>
+                    <p class="footer-academic"><i class="fas fa-graduation-cap"></i> CSE316 Academic Project</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <a href="#problem">Problem</a>
+                    <a href="#solution">Solution</a>
+                    <a href="#demo">Demo</a>
+                    <a href="#features">Features</a>
+                    <a href="#about">Team</a>
+                </div>
+                <div class="footer-contact">
+                    <h4>Team Members</h4>
+                    <p><i class="fas fa-user"></i> Mohit Yadav — 12418960</p>
+                    <p><i class="fas fa-user"></i> Zarah Ali Khan — 12416213</p>
+                    <p><i class="fas fa-user"></i> Lingannapeta Ajay — 12416013</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Mohit, Zarah & Ajay. Built with <i class="fas fa-heart"></i> for CSE316.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Chatbot -->
+    <div class="chatbot-toggle" id="chatbotToggle">
+        <i class="fas fa-robot"></i>
+        <span class="chatbot-badge">AI</span>
+    </div>
+    <div class="chatbot-window" id="chatbotWindow">
+        <div class="chatbot-header">
+            <div class="chatbot-title">
+                <i class="fas fa-robot"></i>
+                <span>MemGuard AI Assistant</span>
+            </div>
+            <button class="chatbot-close" id="chatbotClose"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chatbot-messages" id="chatbotMessages">
+            <div class="chat-message bot">
+                <div class="message-avatar"><i class="fas fa-robot"></i></div>
+                <div class="message-bubble">
+                    Hi! I'm the MemGuard AI assistant. Ask me anything about memory isolation, how this system works, or operating system security concepts! 🛡️
+                </div>
+            </div>
+        </div>
+        <div class="chatbot-suggestions" id="chatbotSuggestions">
+            <button class="suggestion-chip" data-question="What is memory isolation?">What is memory isolation?</button>
+            <button class="suggestion-chip" data-question="How does the MMU work?">How does the MMU work?</button>
+            <button class="suggestion-chip" data-question="What is a segfault?">What is a segfault?</button>
+            <button class="suggestion-chip" data-question="Why is this important?">Why is this important?</button>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chatInput" placeholder="Ask about memory isolation..." autocomplete="off">
+            <button id="chatSend"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
