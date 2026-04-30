@@ -231,6 +231,9 @@ function addLog(message, type = 'info') {
     entry.style.animation = 'fadeInUp 0.3s ease';
 }
 
+// Simulates an unauthorized memory access attempt where one process tries to read
+// or write to the memory blocks allocated to another process.
+// Memory blocks are isolated by the OS, so this should trigger a segmentation fault.
 function simulateAttack(attacker, target, attackerLabel, targetLabel) {
     // Disable buttons during animation
     const buttons = document.querySelectorAll('.demo-controls .btn');
