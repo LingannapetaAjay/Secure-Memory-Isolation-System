@@ -288,6 +288,7 @@ function simulateLegitAccess() {
     const buttons = document.querySelectorAll('.demo-controls .btn');
     buttons.forEach(b => b.disabled = true);
 
+    // Check if process is accessing its own memory
     addLog(`Process A (PID: 1024) accessing own memory at 0xA000...`, 'info');
 
     const slots = document.querySelectorAll('#memGridA .mem-slot');
