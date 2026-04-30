@@ -263,6 +263,7 @@ function simulateAttack(attacker, target, attackerLabel, targetLabel) {
 
             addLog(`🛡️ SEGFAULT: Access violation at ${attacker === 'A' ? '0xB000' : '0xA000'}`, 'error');
             addLog(`❌ ${attackerLabel} (PID: ${attacker === 'A' ? '1024' : '2048'}) access DENIED. Process terminated.`, 'error');
+            addLog(`🚨 KERNEL: Initiating process cleanup and memory core dump...`, 'warning');
 
             resultContent.className = 'result-content denied';
             resultContent.innerHTML = `<i class="fas fa-times-circle"></i><span><strong>Access Denied ❌</strong> — ${attackerLabel} was blocked from reading ${targetLabel}'s memory. Segmentation fault triggered.</span>`;
