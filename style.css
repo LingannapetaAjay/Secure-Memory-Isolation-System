@@ -86,7 +86,8 @@ body {
     font-family: var(--font-main);
     background: var(--bg-primary);
     color: var(--text-primary);
-    line-height: 1.7;
+    line-height: 1.75;
+    letter-spacing: 0.01em;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -561,8 +562,8 @@ img {
 }
 
 .btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(108, 92, 231, 0.4);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 10px 40px rgba(108, 92, 231, 0.5);
 }
 
 .btn-secondary {
